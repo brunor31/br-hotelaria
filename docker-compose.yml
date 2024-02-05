@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+
+  api: 
+    build: 
+      context: ./api
+    container_name: api
+    tty: true
+    volumes:
+      - ./api/src:/var/www/html
+      - ./api/config/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - 8080:80
+    entrypoint: ["bash", "-c", "chmod -R 777 storage && composer install && apache2-foreground"]
+    depends_on:
+      - db
+
+  db: 
+    build: 
+      context: ./db
+    container_name: db
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: br-hotelaria
+    ports:
+      - 3306:3306
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - 8081:8080
+
+networks:
+  default:
+      name: br-hotelaria
+
+    

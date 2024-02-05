@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return $this->userService->index();
     }
 
     /**
@@ -35,15 +35,17 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $this->userService->show($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreUserRequest $request, string $id)
     {
-        //
+        $data = $request->validated();
+
+        return $this->userService->update($data, $id);
     }
 
     /**

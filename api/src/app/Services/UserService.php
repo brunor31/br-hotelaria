@@ -83,31 +83,5 @@ class UserService
             );
         }
     }
-
-    public function update(array $data, string $id)
-    {
-        try {
-            
-            $user = $this->show($id);
-
-            $user->update($data);
-
-            Log::channel('br-hotelaria-logs')
-                ->info('Usuário atualizado', ['user' => $user]);
-
-            return response()->json(
-                ['message' => 'Usuário atualizado com sucesso!'],
-                Response::HTTP_OK
-            );
-
-        } catch (\Exception $e) {
-
-            return response()->json(
-                ['message' => 'Erro ao atualizar usuário', 'error' => $e->getMessage()],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
-        }
-    }
-
 }
 

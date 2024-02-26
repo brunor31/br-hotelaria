@@ -9,5 +9,6 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-      - run: cd api/src
-      - run: composer install
+      - run: |
+          cd api/src
+          composer install
